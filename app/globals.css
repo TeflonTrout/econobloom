@@ -2,32 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* styles/globals.css */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --primary-green: #4CAF50;
+  --accent-green: #81C784;
+  --dark-green: #388E3C;
+  --sunset-orange: #FF9800;
+  --sky-blue: #03A9F4;
+  --neutral-gray: #E0E0E0;
+  --white: #FFFFFF;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  min-height: 100vh; /* Ensuring the body takes at least the full height of the viewport */
+  max-width: 100vw; /* Ensuring the body does not exceed the width of the viewport */
+  background-image: linear-gradient(to right, var(--primary-green), var(--sky-blue)); /* Gradient from green to blue */
+  color: var(--white);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+#__next {
+  width: 100%;
+  min-height: 100vh; /* Ensuring the Next.js root element also takes at least the full viewport height */
 }
