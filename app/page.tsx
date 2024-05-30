@@ -1,14 +1,16 @@
 "use client";
-import { useQuery } from "convex/react";
-import { api } from "../convex/_generated/api";
+import { useAccount } from "wagmi";
+import { MintButton } from "./components/MintButton";
 
 export default function HomePage() {
+  const { address } = useAccount();
+
   return (
     <div>
-      <h1>Home</h1>
-      {/* {players?.map((player: any) => (
-        <h1 key={player._id}>{player.username}</h1>
-      ))} */}
+      <h1>Welcome to Econobloom!</h1>
+      <div>Mint your plant!</div>
+      <MintButton userAddress={address!} plantType="Cactus" />
+      <MintButton userAddress={address!} plantType="Vine" />
     </div>
   );
 }

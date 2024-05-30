@@ -27,6 +27,8 @@ const config = {
       emerald: colors.emerald,
       indigo: colors.indigo,
       yellow: colors.yellow,
+      blue: colors.blue,
+      green: colors.green
     },
   },
   plugins: [],

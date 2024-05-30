@@ -7,15 +7,17 @@ export interface Player {
   }
 
   export interface Plant {
+    id?: string
     _creation_time: string | null
-    growth_stage: number | null
-    health: number | null
-    id: string
+    growth_stage: number
+    health: number
     last_market_check: string | null
     last_watered: string | null
     market_effect: string | null
     owner_id: string | null
-    plant_id: string | null
+    plant_id: string
     type: string | null
     wallet_address: string | null
+    xp: number
+    ready_to_evolve: boolean
   }
