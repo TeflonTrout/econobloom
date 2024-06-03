@@ -1,46 +1,53 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+// SnackbarProvider.tsx
+import React, { createContext, useContext, useState, useCallback } from "react";
 import Snackbar from "../components/Snackbar";
 
 interface SnackbarContextType {
-  showMessage: (message: string) => void;
+  showMessage: (message: string, persist?: boolean) => void;
 }
 
 const SnackbarContext = createContext<SnackbarContextType | undefined>(
   undefined
 );
 
-export const SnackbarProvider: React.FC<{ children: ReactNode }> = ({
+export const useSnackbar = () => {
+  const context = useContext(SnackbarContext);
+  if (!context) {
+    throw new Error("useSnackbar must be used within a SnackbarProvider");
+  }
+  return context;
+};
+
+interface SnackbarProviderProps {
+  children: React.ReactNode;
+}
+
+export const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
   children,
 }) => {
-  const [message, setMessage] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const [snackbarInfo, setSnackbarInfo] = useState({
+    message: "",
+    isOpen: false,
+    persist: false,
+  });
 
-  const showMessage = (message: string) => {
-    setMessage(message);
-    setIsOpen(true);
-  };
+  const closeSnackbar = useCallback(() => {
+    setSnackbarInfo((prev) => ({ ...prev, isOpen: false }));
+  }, []);
 
-  const closeSnackbar = () => {
-    setIsOpen(false);
-    setMessage("");
-  };
+  const showMessage = useCallback((message: string, persist = false) => {
+    setSnackbarInfo({ message, isOpen: true, persist });
+  }, []);
 
   return (
     <SnackbarContext.Provider value={{ showMessage }}>
       {children}
       <Snackbar
-        message={message}
-        isOpen={isOpen}
+        message={snackbarInfo.message}
+        isOpen={snackbarInfo.isOpen}
         closeSnackbar={closeSnackbar}
+        persist={snackbarInfo.persist}
       />
     </SnackbarContext.Provider>
   );
-};
-
-export const useSnackbar = () => {
-  const context = useContext(SnackbarContext);
-  if (context === undefined) {
-    throw new Error("useSnackbar must be used within a SnackbarProvider");
-  }
-  return context;
 };

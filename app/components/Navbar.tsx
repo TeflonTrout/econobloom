@@ -57,34 +57,51 @@ const Navbar = () => {
     <nav className="text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/">
-          <h1>Econoblooom</h1>
+          <h1 className="text-2xl font-serif font-bold text-white cursor-pointer">
+            Econobloom
+          </h1>
         </Link>
-        <div className="flex gap-4">
-          <Link href="/about">About</Link>
-          <Link href="/market">Market</Link>
-          <Link href="/community">Community</Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/about"
+            className="text-xl font-bold hover:text-gray-200 transition-colors"
+          >
+            About
+          </Link>
+          <Link
+            href="/market"
+            className="text-xl font-bold hover:text-gray-200 transition-colors"
+          >
+            Market
+          </Link>
+          <Link
+            href="/mint"
+            className="text-xl font-bold hover:text-gray-200 transition-colors"
+          >
+            Mint
+          </Link>
+          {isConnected ? (
+            <div className="flex w-auto mx-auto items-center">
+              <Link
+                href={`/profile/${address}`}
+                className="text-white text-xl font-bold cursor-pointer no-underline hover:text-gray-200 transition-colors"
+              >
+                User Profile
+              </Link>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  disconnect();
+                }}
+                className="ml-4 text-xl font-bold bg-gray-700 px-3 py-1 rounded text-white hover:bg-gray-600"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <ConnectButton showBalance={false} />
+          )}
         </div>
-        {isConnected ? (
-          <>
-            <Link
-              href={`/profile/${address}`}
-              className="text-white no-underline hover:text-gray-200"
-            >
-              User Profile
-            </Link>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                disconnect();
-              }}
-              className="ml-4 bg-gray-700 p-2 rounded text-white hover:bg-gray-600"
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <ConnectButton showBalance={false} />
-        )}
       </div>
     </nav>
   );

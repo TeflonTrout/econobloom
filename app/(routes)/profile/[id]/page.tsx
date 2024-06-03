@@ -16,7 +16,8 @@ const ProfilePage = () => {
       const { data, error } = await supabase
         .from("plants")
         .select("*")
-        .eq("wallet_address", id);
+        .eq("wallet_address", id)
+        .order("_creation_time", { ascending: false });
 
       if (error) {
         console.error("Error fetching plants:", error);
@@ -29,7 +30,6 @@ const ProfilePage = () => {
   };
 
   const updatePlant = (updatedPlant: Plant) => {
-    console.log("running", updatedPlant.id);
     setPlants((prevPlants) =>
       prevPlants.map((plant) =>
         plant.id === updatedPlant.id ? updatedPlant : plant
@@ -42,26 +42,36 @@ const ProfilePage = () => {
   }, [id]);
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold">Profile Page</h1>
-      <p>User wallet: {typeof id === "string" ? id : "Invalid ID"}</p>
-      <div className="mt-4">
-        <h2 className="text-lg font-bold">Plants Owned</h2>
+    <div className="min-h-[100vh] p-4 flex flex-col justify-start items-center w-full">
+      <h1 className="text-3xl font-bold">
+        {typeof id === "string"
+          ? `${id.slice(0, 4)}...${id.slice(38, 42)}`
+          : "Invalid ID"}
+        &apos;s Garden
+      </h1>
+      <div className="mt-4 flex flex-col justify-start items-center">
+        <h2 className="mb-4 text-3xl font-bold">
+          Plants Owned: {!isLoading ? plants.length : null}
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {plants.length > 0 && !isLoading ? (
-            plants.map((plant) => (
-              <PlantCard
-                key={plant.id}
-                plant={plant}
-                updatePlant={() => updatePlant(plant)}
-              />
-            ))
-          ) : isLoading ? (
-            <p>Loading...</p>
-          ) : (
-            <p>No plants owned.</p>
-          )}
+          {plants.length > 0 && !isLoading
+            ? plants.map((plant) => (
+                <PlantCard
+                  key={plant.id}
+                  plant={plant}
+                  updatePlant={() => updatePlant(plant)}
+                  marketplace={false}
+                />
+              ))
+            : null}
         </div>
+        {isLoading ? (
+          <p className="w-full text-2xl font-bold text-center items-center flex justify-center">
+            Loading...
+          </p>
+        ) : (
+          <p>No plants owned.</p>
+        )}
       </div>
     </div>
   );

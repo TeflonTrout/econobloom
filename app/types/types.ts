@@ -16,7 +16,7 @@ export interface Player {
     market_effect: string | null
     owner_id: string | null
     plant_id: string
-    type: string | null
+    type: string
     wallet_address: string | null
     xp: number
     ready_to_evolve: boolean
