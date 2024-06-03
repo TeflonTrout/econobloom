@@ -29,7 +29,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchRsiData = async () => {
       const { data } = await axios.get(
-        "https://econobloom-server-production.up.railway.app/rsi/data"
+        "https://econobloom-server.onrender.com/rsi/data"
       );
       console.log(data.data);
       const updatedData = data.data.map((item: RSI) => {

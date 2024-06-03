@@ -44,7 +44,7 @@ const PlantCard: React.FC<PlantCardProps> = ({
     try {
       showMessage("Watering Plant...", true);
       const { data } = await axios.post(
-        `https://econobloom-server-production.up.railway.app/water/${plant.id}`
+        `https://econobloom-server.onrender.com/water/${plant.id}`
       );
 
       const updatedPlant = data[0];
@@ -64,7 +64,7 @@ const PlantCard: React.FC<PlantCardProps> = ({
   const growPlant = async () => {
     try {
       const { data } = await axios.post(
-        `https://econobloom-server-production.up.railway.app/grow/${plant.id}`
+        `https://econobloom-server.onrender.com/grow/${plant.id}`
       );
 
       console.log(data);
