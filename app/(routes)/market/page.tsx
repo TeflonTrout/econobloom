@@ -10,7 +10,7 @@ const Market = () => {
   useEffect(() => {
     const fetchPlants = async () => {
       const { data } = await axios.get(
-        "https://econobloom-server-production.up.railway.app/plants/all"
+        "https://econobloom-server.onrender.com/plants/all"
       );
       if (data) {
         setPlants(data);
