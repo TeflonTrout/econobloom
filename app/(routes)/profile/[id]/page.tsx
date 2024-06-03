@@ -69,9 +69,9 @@ const ProfilePage = () => {
           <p className="w-full text-2xl font-bold text-center items-center flex justify-center">
             Loading...
           </p>
-        ) : (
+        ) : plants.length == 0 ? (
           <p>No plants owned.</p>
-        )}
+        ) : null}
       </div>
     </div>
   );
