@@ -31,8 +31,7 @@ export default function HomePage() {
       const { data } = await axios.get(
         "https://econobloom-server.onrender.com/rsi/data"
       );
-      console.log(data.data);
-      const updatedData = data.data.map((item: RSI) => {
+      const updatedData = data.data.reverse().map((item: RSI) => {
         const date = new Date(item.timestamp);
         const formattedDate = date.toLocaleDateString("en-US", {
           month: "2-digit",
@@ -40,7 +39,6 @@ export default function HomePage() {
         });
         return { ...item, timestamp: formattedDate };
       });
-      console.log(updatedData);
 
       setRsiData(updatedData);
     };
@@ -80,16 +78,25 @@ export default function HomePage() {
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={rsiData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timestamp" color="black" />
+            <XAxis dataKey="timestamp" color="black" minTickGap={15} />
             <YAxis
               domain={[0, 100]}
               label={{ value: "RSI", angle: -90, position: "insideLeft" }}
             />
-            <Tooltip />
+            <Tooltip
+              labelFormatter={(label) => `Date: ${label}`}
+              formatter={(value: number) => [`${Math.round(value)}`, "RSI"]}
+              contentStyle={{
+                backgroundColor: "rgba(0, 0, 0, 0.8)", // Dark background with some transparency
+                color: "white", // White text
+                border: "none", // Remove any border
+                borderRadius: "4px", // Optional: rounded corners
+                padding: "10px", // Padding inside the tooltip
+              }}
+            />
             <Line
               type="monotone"
               dataKey="rsi_value"
-              label="RSI"
               stroke="#03A9F4"
               strokeWidth={4}
               dot={false}
