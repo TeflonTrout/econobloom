@@ -160,6 +160,19 @@ export const MARKET_CONTRACT_ABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "newUrl",
+				"type": "string"
+			}
+		],
+		"name": "setApiUrl",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "to",
 				"type": "address"
@@ -175,6 +188,19 @@ export const MARKET_CONTRACT_ABI = [
 		"name": "withdrawLink",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getApiUrl",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
